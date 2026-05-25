@@ -22,7 +22,7 @@ export function splitDiscordMessage(text, maxLength) {
 }
 
 export async function replyInChunks(message, text, maxLength) {
-  const normalized = text?.trim() || "Open-LLM-VTuber 沒有回傳文字。";
+  const normalized = text?.trim() || "The AI did not return any text.";
   const chunks = splitDiscordMessage(normalized, maxLength);
 
   let first = true;
