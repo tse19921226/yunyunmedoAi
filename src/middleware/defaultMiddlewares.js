@@ -41,7 +41,7 @@ export function registerDefaultMiddlewares(pipeline, config) {
     if (!ctx.prompt) {
       ctx.isHalted = true;
       ctx.haltReason = "empty prompt";
-      await ctx.message.reply("請直接在標註我後面加上要說的內容。");
+      await ctx.message.reply("Please say something after mentioning me.");
       return;
     }
 

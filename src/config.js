@@ -20,8 +20,12 @@ function intFromEnv(name, fallback) {
 const config = {
   discordToken: process.env.DISCORD_TOKEN,
   discordClientId: process.env.DISCORD_CLIENT_ID,
+  aiBackend: process.env.AI_BACKEND ?? "open-llm-vtuber",
   openLLMVtuberWs:
     process.env.OPEN_LLM_VTUBER_WS ?? "ws://127.0.0.1:12393/client-ws",
+  openAiApiKey: process.env.OPENAI_API_KEY,
+  openAiModel: process.env.OPENAI_MODEL ?? "gpt-5.4-mini",
+  vtuberPersonaPrompt: process.env.VTUBER_PERSONA_PROMPT,
   triggerMode: process.env.BOT_TRIGGER_MODE ?? "mention",
   allowedChannelIds: splitCsv(process.env.BOT_ALLOWED_CHANNEL_IDS),
   ignoredUserIds: splitCsv(process.env.BOT_IGNORED_USER_IDS),
@@ -40,6 +44,10 @@ export function validateConfig() {
 
   if (!["mention", "all"].includes(config.triggerMode)) {
     throw new Error("BOT_TRIGGER_MODE must be either mention or all.");
+  }
+
+  if (!["open-llm-vtuber", "persona-ai"].includes(config.aiBackend)) {
+    throw new Error("AI_BACKEND must be either open-llm-vtuber or persona-ai.");
   }
 }
 

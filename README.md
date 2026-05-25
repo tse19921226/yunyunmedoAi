@@ -8,13 +8,17 @@ This repo is an integration layer for:
 
 The current implementation is intentionally a bridge, not a hard source-code merge. Open-LLM-VTuber remains the VTuber runtime, while this Node.js bot forwards Discord messages to its `/client-ws` WebSocket endpoint.
 
+It can also run a lightweight persona AI backend for early Discord testing before the full VTuber runtime is available.
+
 ## Architecture
 
 ```text
 Discord message
   -> Luna-style trigger handling
   -> ECILA-style middleware pipeline
-  -> Open-LLM-VTuber /client-ws text-input
+  -> AI backend
+     -> Open-LLM-VTuber /client-ws text-input
+     -> or persona-ai via OpenAI Responses API
   -> collect audio.display_text.text
   -> Discord reply
 ```
@@ -41,6 +45,26 @@ On Windows you can also run:
 ```powershell
 .\start_discord_bridge.bat
 ```
+
+## AI Backends
+
+Default mode uses Open-LLM-VTuber:
+
+```env
+AI_BACKEND=open-llm-vtuber
+OPEN_LLM_VTUBER_WS=ws://127.0.0.1:12393/client-ws
+```
+
+For a small VTuber-style persona AI, use:
+
+```env
+AI_BACKEND=persona-ai
+OPENAI_API_KEY=your_api_key_here
+OPENAI_MODEL=gpt-5.4-mini
+VTUBER_PERSONA_PROMPT=You are Yunyunmedo, a friendly VTuber-style AI assistant in a Discord server. Answer in Traditional Chinese by default. Keep replies warm, playful, concise, and conversational.
+```
+
+If `AI_BACKEND=persona-ai` is selected but `OPENAI_API_KEY` is empty, the bot uses a local fallback response so Discord trigger/reply flow can still be tested without model calls.
 
 ## Discord Behavior
 
