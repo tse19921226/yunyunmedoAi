@@ -1,0 +1,19 @@
+{
+  "name": "yunyunmedo-ai",
+  "version": "0.1.0",
+  "description": "Discord bridge for Open-LLM-VTuber with Luna-style chat handling and ECILA-style middleware.",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "check": "node --check src/index.js && node --check src/config.js && node --check src/services/OpenLLMVTuberClient.js && node --check src/services/DiscordReplyService.js && node --check src/middleware/MiddlewarePipeline.js && node --check src/middleware/defaultMiddlewares.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.19.3",
+    "dotenv": "^16.5.0",
+    "ws": "^8.18.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
